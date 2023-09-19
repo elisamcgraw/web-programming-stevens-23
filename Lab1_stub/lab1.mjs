@@ -1,4 +1,5 @@
 
+
 /** Question 1 */
 export const questionOne = (arr) => {
 
@@ -28,6 +29,7 @@ export const questionOne = (arr) => {
   return [totalVowels, isEven]; //return result
 };
 
+
 /** Question 2 */
 export const questionTwo = (obj1, obj2) => {
   
@@ -56,6 +58,7 @@ export const questionTwo = (obj1, obj2) => {
 
   return combinedUniqueKeys; //return result
 };
+
 
 /** Question 3 */
 export const questionThree = (arr) => {
@@ -88,9 +91,29 @@ export const questionThree = (arr) => {
   return results; //return result
 };
 
+
+/** Question 4 */
 export const questionFour = (string) => {
-  // Implement question 4 here
-  return; //return result
+
+    // Split the CSV string into an array of words using a comma as the delimeter
+    const words = string.split(',');
+  
+    // Define a helper function to rearrange a word
+    const rearrangeWord = (word) => {
+      // Calculate the middle index of the word
+      const length = word.length;
+      const middle = Math.floor(length / 2);
+  
+      // Rearrange the word based on the specified logic and concatenate the second half with the first half
+      const rearrangedWord = word.slice(middle) + word.slice(0, middle);
+      return rearrangedWord;
+    };
+  
+    // Use the map function to apply the rearrangeWord function to each word in the array
+    const rearrangedWords = words.map((word) => rearrangeWord(word));
+  
+  // Return array of rearraged words
+  return rearrangedWords; //return result
 };
 
 //DO NOT FORGET TO UPDATE THE INFORMATION BELOW OR IT WILL BE -2 POINTS PER FIELD THAT IS MISSING.
