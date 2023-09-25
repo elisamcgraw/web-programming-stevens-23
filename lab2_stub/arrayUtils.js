@@ -32,6 +32,42 @@ const checkNonEmptyArrays = (args) => {
   });
 };
 
+const isStringOrNumber = (value) => typeof value === "string" || typeof value === "number";
+
+const validateAndFlattenArrays = (arrays) => {
+  const flattenedArrays = [];
+
+  arrays.forEach((arr, index) => {
+    if (!Array.isArray(arr) || arr.length === 0) {
+      throw new Error(`Input at index ${index + 1} is not a non-empty array`);
+    }
+
+    const flattened = [];
+
+    arr.forEach((element) => {
+      if (Array.isArray(element)) {
+        // If it's an array, check its elements
+        element.forEach((subElement) => {
+          if (!isStringOrNumber(subElement)) {
+            throw new Error(`Element in array at index ${index + 1} is not a valid type`);
+          }
+          flattened.push(subElement);
+        });
+      } else if (isStringOrNumber(element)) {
+        // If it's a string or number, add it
+        flattened.push(element);
+      } else {
+        throw new Error(`Element in array at index ${index + 1} is not a valid type`);
+      }
+    });
+
+    flattenedArrays.push(flattened);
+  });
+
+  return flattenedArrays;
+};
+
+
 // Function to check if an argument is a 2D array of arrays
 const isArrayofArrays = (arr) => {
   if (!Array.isArray(arr) || !arr.every((subArr) => Array.isArray(subArr))) {
@@ -97,7 +133,10 @@ let mergeCommonElements = (...args) => {
   checkNonEmptyArrays(args);
 
   // Flatten each input array
-  const flattenedArrays = args.map((arr) => flattenArray(arr));
+  //const flattenedArrays = args.map((arr) => flattenArray(arr));
+
+  // Validate and flatten each input array
+  const flattenedArrays = validateAndFlattenArrays(args);
 
   // Find common elements
   const commonElements = flattenedArrays[0].filter((element) =>
@@ -150,4 +189,109 @@ let findTriangles = (arr) => {
   return result;
 };
 
-export { mergeCommonElements, findTriangles };
+//export { mergeCommonElements, findTriangles };
+
+let stringMetrics = function(arr) {
+  // Error check: Check if the argument is an array
+  if (!Array.isArray(arr)) {
+    throw new Error("Input must be an array.");
+  }
+
+  // Error check: Check if there are at least two strings in the array
+  if (arr.length < 2) {
+    throw new Error("There must be at least two strings in the array.");
+  }
+
+  // Filter out empty strings and validate that all elements are strings
+  const filteredArr = arr.filter((str) => {
+    if (typeof str !== "string") {
+      throw new Error("All elements in the array must be strings.");
+    }
+    return str.trim() !== "";
+  });
+
+  // Error check: Check if there are still at least two non-empty strings
+  if (filteredArr.length < 2) {
+    throw new Error("There must be at least two non-empty strings in the array.");
+  }
+
+  // Function to count vowels and consonants in a string
+  function countVowelsConsonants(str) {
+    const vowels = str.match(/[aeiou]/gi) || [];
+    const consonants = str.match(/[^aeiou]/gi) || [];
+    return { vowels: vowels.length, consonants: consonants.length };
+  }
+
+  // Calculate metrics for each string in the filtered array
+  const metricsArr = filteredArr.map((str) => {
+    const { vowels, consonants } = countVowelsConsonants(str);
+    return {
+      string: str,
+      length: str.length,
+      vowels,
+      consonants,
+    };
+  });
+
+  // Sort the metrics array by string length in descending order
+  metricsArr.sort((a, b) => b.length - a.length);
+
+  // Calculate mean
+  const totalLength = metricsArr.reduce((sum, str) => sum + str.length, 0);
+  const mean = parseFloat((totalLength / metricsArr.length).toFixed(2));
+
+  // Calculate median
+  let median;
+  if (metricsArr.length % 2 === 0) {
+    const midIndex1 = metricsArr.length / 2 - 1;
+    const midIndex2 = metricsArr.length / 2;
+    median = (metricsArr[midIndex1].length + metricsArr[midIndex2].length) / 2;
+  } else {
+    const midIndex = Math.floor(metricsArr.length / 2);
+    median = metricsArr[midIndex].length;
+  }
+
+  // Calculate mode
+  const lengthCounts = {};
+  metricsArr.forEach((str) => {
+    if (!lengthCounts[str.length]) {
+      lengthCounts[str.length] = 1;
+    } else {
+      lengthCounts[str.length]++;
+    }
+  });
+
+  let mode = null;
+  const modeValues = [];
+  for (const length in lengthCounts) {
+    if (lengthCounts[length] > (mode || 0)) {
+      mode = lengthCounts[length];
+      modeValues.length = 0;
+      modeValues.push(parseInt(length));
+    } else if (lengthCounts[length] === mode) {
+      modeValues.push(parseInt(length));
+    }
+  }
+
+  // Determine the longest and shortest strings
+  const longestLength = metricsArr[0].length;
+  const longest = metricsArr.filter((str) => str.length === longestLength).map((str) => str.string);
+  const shortestLength = metricsArr[metricsArr.length - 1].length;
+  const shortest = metricsArr.filter((str) => str.length === shortestLength).map((str) => str.string);
+
+  // Prepare the result object
+  const result = {
+    vowels: metricsArr.reduce((sum, str) => sum + str.vowels, 0),
+    consonants: metricsArr.reduce((sum, str) => sum + str.consonants, 0),
+    longest: longest.length === 1 ? longest[0] : longest,
+    shortest: shortest.length === 1 ? shortest[0] : shortest,
+    mean: mean,
+    median: median,
+    mode: modeValues.length === 1 ? modeValues[0] : (modeValues.length === 0 ? null : modeValues),
+  };
+
+  return result;
+};
+
+export { mergeCommonElements, findTriangles, stringMetrics };
+
