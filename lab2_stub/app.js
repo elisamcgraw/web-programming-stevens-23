@@ -6,11 +6,11 @@ import {
   findTriangles,
   stringMetrics,
 } from "./arrayUtils.js";
-import { emojiCounter } from "./stringUtils.js";
+import { emojiCounter, sortStockPrices, mashUp } from "./stringUtils.js";
 
 try {
   /* arrayUtils */
-  /*console.log(mergeCommonElements(["apple", "banana", "cherry"], ["cherry", "grape", "kiwi"], [1, 2, 3])); // []
+  console.log(mergeCommonElements(["apple", "banana", "cherry"], ["cherry", "grape", "kiwi"], [1, 2, 3])); // []
     console.log(mergeCommonElements([1, [2, 3]], [[3, 4], [1, 2], [5, 6]], [3, [2, 3], 7])); // [2, 3]
     console.log(findTriangles([[3,3,3], [3,3,4], [5,4,2]]));   // returns {'0': [3.9,9, "equilateral"], '1': [4.47,10, "isosceles"], '2': [3.8,11, "scalene"]}
     console.log(findTriangles([[7,5,5], [2,4,3], [12,12,11]]));   // returns {'0': [12.5, 17, "isosceles"], '1': [2.90, 9, "scalene"], '2': [58.66,35, "isosceles"]}
@@ -19,14 +19,13 @@ try {
     console.log(findTriangles([5, 5, 5])); // throws an error
     console.log(stringMetrics(["hello", "patrick", "hill", "trees", "seventeen"])); //returns {vowels: 11, consonants: 19, longest: "seventeen", shortest: "hill", mean: 6, median:  5, mode: 5}
     console.log(stringMetrics(["john", "rob", "stark", "aegon"])); //returns {vowels: 6, consonants: 11, longest: ["aegon", "stark"], shortest: "rob", mean: 4.25, median:  4.5, mode: 5}
-    console.log(stringMetrics(["apple"])); // throws an error */
+    console.log(stringMetrics(["apple"])); // throws an error 
 
   /* stringUtils */
   console.log(emojiCounter(":fire::fire:")); // Should return 2
   console.log(emojiCounter(":::fire:fire:")); // Should return 1
   console.log(emojiCounter(":fire::pregnant_man::fire:")); // Should return 3
-  console.log(
-    emojiCounter(
+  console.log(emojiCounter(
       "I am so happy :joy::joy: about scoring a :100: on my test! I feel :fire:! But ::100: doesn't count. Neither does :joy::100: in a row."
     )
   ); // Should return 7
@@ -40,3 +39,31 @@ try {
 } catch (e) {
   console.error(e); // Print the error message
 }
+
+// 
+try {
+    let lastStocks1 = `AAPL,175.25|GOOG,135.40|AMZN,140.00`;
+    let currStocks1 = `amzn,136.75|GOOG,135.60|AAPL,180.12`;
+    console.log(sortStockPrices(lastStocks1, currStocks1)); // returns [{symbol: "AAPL", price: 180.12, change: 2.8 }, {symbol: "GOOG", price: 135.60, change: 0.1}, {symbol: "AMZN", price: 136.75, change: -2.3}]
+    let lastStocks2 = `GME,18.25|AMC, 8.00|PFE, 34.00`;
+    let currStocks2 = `amc, 7.75|GME, 18.80|AAL, 13.32`;
+    console.log(sortStockPrices(lastStocks2, currStocks2)); // throws an error
+  } catch (error) {
+    console.error(error.message);
+  }
+
+  // Test cases
+try {
+    console.log(mashUp("Patrick", "Hill"));    // Returns "Hillick Patr"
+    console.log(mashUp("helloooo", "world!")); // Returns "worloooo helld!"
+    console.log(mashUp("Patrick", ""));         // Throws error
+    console.log(mashUp());                      // Throws error
+    console.log(mashUp("John"));                // Throws error
+    console.log(mashUp("h", "Hello"));          // Throws error
+    console.log(mashUp("h", "e"));              // Throws error
+  } catch (error) {
+    console.error(error.message);
+  }
+  
+  
+  
