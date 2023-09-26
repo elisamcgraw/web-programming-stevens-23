@@ -32,7 +32,8 @@ const checkNonEmptyArrays = (args) => {
   });
 };
 
-const isStringOrNumber = (value) => typeof value === "string" || typeof value === "number";
+const isStringOrNumber = (value) =>
+  typeof value === "string" || typeof value === "number";
 
 const validateAndFlattenArrays = (arrays) => {
   const flattenedArrays = [];
@@ -49,7 +50,9 @@ const validateAndFlattenArrays = (arrays) => {
         // If it's an array, check its elements
         element.forEach((subElement) => {
           if (!isStringOrNumber(subElement)) {
-            throw new Error(`Element in array at index ${index + 1} is not a valid type`);
+            throw new Error(
+              `Element in array at index ${index + 1} is not a valid type`
+            );
           }
           flattened.push(subElement);
         });
@@ -57,7 +60,9 @@ const validateAndFlattenArrays = (arrays) => {
         // If it's a string or number, add it
         flattened.push(element);
       } else {
-        throw new Error(`Element in array at index ${index + 1} is not a valid type`);
+        throw new Error(
+          `Element in array at index ${index + 1} is not a valid type`
+        );
       }
     });
 
@@ -66,7 +71,6 @@ const validateAndFlattenArrays = (arrays) => {
 
   return flattenedArrays;
 };
-
 
 // Function to check if an argument is a 2D array of arrays
 const isArrayofArrays = (arr) => {
@@ -121,6 +125,7 @@ const areSubarraysValid = (arr) => {
 
 /****************************** Lab Functions Implementation  ******************************/
 
+/*********************** mergeCommonElements *************************/
 //This function takes in a variable number of arrays that's what the ...args signifies
 let mergeCommonElements = (...args) => {
   // Check input array count
@@ -152,6 +157,7 @@ let mergeCommonElements = (...args) => {
   return uniqueSortedCommonElements;
 };
 
+/*********************** findTriangles *************************/
 let findTriangles = (arr) => {
   // Check if the input is a 2D array of arrays
   isArrayofArrays(arr);
@@ -189,9 +195,8 @@ let findTriangles = (arr) => {
   return result;
 };
 
-//export { mergeCommonElements, findTriangles };
-
-let stringMetrics = function(arr) {
+/*********************** stringMetrics *************************/
+let stringMetrics = function (arr) {
   // Error check: Check if the argument is an array
   if (!Array.isArray(arr)) {
     throw new Error("Input must be an array.");
@@ -212,7 +217,9 @@ let stringMetrics = function(arr) {
 
   // Error check: Check if there are still at least two non-empty strings
   if (filteredArr.length < 2) {
-    throw new Error("There must be at least two non-empty strings in the array.");
+    throw new Error(
+      "There must be at least two non-empty strings in the array."
+    );
   }
 
   // Function to count vowels and consonants in a string
@@ -275,9 +282,13 @@ let stringMetrics = function(arr) {
 
   // Determine the longest and shortest strings
   const longestLength = metricsArr[0].length;
-  const longest = metricsArr.filter((str) => str.length === longestLength).map((str) => str.string);
+  const longest = metricsArr
+    .filter((str) => str.length === longestLength)
+    .map((str) => str.string);
   const shortestLength = metricsArr[metricsArr.length - 1].length;
-  const shortest = metricsArr.filter((str) => str.length === shortestLength).map((str) => str.string);
+  const shortest = metricsArr
+    .filter((str) => str.length === shortestLength)
+    .map((str) => str.string);
 
   // Prepare the result object
   const result = {
@@ -287,11 +298,15 @@ let stringMetrics = function(arr) {
     shortest: shortest.length === 1 ? shortest[0] : shortest,
     mean: mean,
     median: median,
-    mode: modeValues.length === 1 ? modeValues[0] : (modeValues.length === 0 ? null : modeValues),
+    mode:
+      modeValues.length === 1
+        ? modeValues[0]
+        : modeValues.length === 0
+        ? null
+        : modeValues,
   };
 
   return result;
 };
 
 export { mergeCommonElements, findTriangles, stringMetrics };
-
