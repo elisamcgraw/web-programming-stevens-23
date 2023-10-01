@@ -46,23 +46,29 @@ function checkSameStocks(lastStockKeys, currStockKeys) {
   }
 }
 
-/******************** Lab Functions **********************/
+/********************** LAB FUNCTIONS ************************/
+
+/*********************** emojiCounter *************************/
+
 let emojiCounter = (message) => {
   // Error check: Check if the input exists and is of the proper type (string)
-  checkInputType(message);
+  checkIfString(message);
 
-  // Error check: Remove spaces and check if the input is empty
-  checkEmptyInput(message);
+  // Initialize the counter for emojis
+  let count = 0;
 
   // Regular expression to match valid emojis enclosed within colons
   const emojiRegex = /:[^:\s]+:/g;
 
-  // Find all valid emojis in the message
+  // Find all valid emojis in the message and increment the counter
   const emojis = message.match(emojiRegex) || [];
+  count = emojis.length;
 
   // Return the number of valid emojis found
-  return emojis.length;
+  return count;
 };
+
+/*********************** sortStockPrices *************************/
 
 let sortStockPrices = function (lastStocks, currStocks) {
   // Check if both arguments are strings
@@ -120,6 +126,7 @@ let sortStockPrices = function (lastStocks, currStocks) {
   return stockObjects;
 };
 
+/*********************** mashUp *************************/
 let mashUp = (string1, string2) => {
   // Check if both strings exist and are of the proper type
   checkIfString(string1);

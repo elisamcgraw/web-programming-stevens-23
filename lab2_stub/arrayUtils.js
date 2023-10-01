@@ -32,46 +32,6 @@ const checkNonEmptyArrays = (args) => {
   });
 };
 
-const isStringOrNumber = (value) =>
-  typeof value === "string" || typeof value === "number";
-
-const validateAndFlattenArrays = (arrays) => {
-  const flattenedArrays = [];
-
-  arrays.forEach((arr, index) => {
-    if (!Array.isArray(arr) || arr.length === 0) {
-      throw new Error(`Input at index ${index + 1} is not a non-empty array`);
-    }
-
-    const flattened = [];
-
-    arr.forEach((element) => {
-      if (Array.isArray(element)) {
-        // If it's an array, check its elements
-        element.forEach((subElement) => {
-          if (!isStringOrNumber(subElement)) {
-            throw new Error(
-              `Element in array at index ${index + 1} is not a valid type`
-            );
-          }
-          flattened.push(subElement);
-        });
-      } else if (isStringOrNumber(element)) {
-        // If it's a string or number, add it
-        flattened.push(element);
-      } else {
-        throw new Error(
-          `Element in array at index ${index + 1} is not a valid type`
-        );
-      }
-    });
-
-    flattenedArrays.push(flattened);
-  });
-
-  return flattenedArrays;
-};
-
 // Function to check if an argument is a 2D array of arrays
 const isArrayofArrays = (arr) => {
   if (!Array.isArray(arr) || !arr.every((subArr) => Array.isArray(subArr))) {
@@ -138,10 +98,7 @@ let mergeCommonElements = (...args) => {
   checkNonEmptyArrays(args);
 
   // Flatten each input array
-  //const flattenedArrays = args.map((arr) => flattenArray(arr));
-
-  // Validate and flatten each input array
-  const flattenedArrays = validateAndFlattenArrays(args);
+  const flattenedArrays = args.map((arr) => flattenArray(arr));
 
   // Find common elements
   const commonElements = flattenedArrays[0].filter((element) =>
