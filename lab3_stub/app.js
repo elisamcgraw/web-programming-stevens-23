@@ -24,6 +24,7 @@ import * as authors from "./authors.js");
 
 /*********************** AUTHORS ***********************/
 
+/*
 import * as authors from "./authors.js";
 
 // TESTING FIRST FUNCTION
@@ -67,28 +68,8 @@ const testGetAuthorById = async () => {
   }
 };
 
-// Call the test function
 testGetAuthorById();
 
-/*
- * OUTPUT
- * Author 1: {
-  id: '1871e6d7-551f-41cb-9a07-08240b86c95c',
-  first_name: 'Derward',
-  last_name: 'Ticic',
-  date_of_birth: '6/3/1932',
-  HometownCity: 'Garden Grove',
-  HometownState: 'CA',
-  books: [ '4efdb199-5a0f-4410-bded-ce07990c6aa4' ]
-}
-Error for Author 2: Invalid argument: id must be a string
-Error for Author 3: Invalid argument: id must be a string
-Error for Author 4: Invalid argument: id must be a string
-Error for Author 5: Author not found
-
- */
-
-// TEST SECOND FUNCTION
 
 const testSearchAuthorByName = async () => {
   try {
@@ -129,7 +110,6 @@ const testSearchAuthorByName = async () => {
 
 testSearchAuthorByName();
 
-// TEST THIRD FUNCTION
 const testGetBookNames = async () => {
   try {
     const bookList1 = await authors.getBookNames("Prisca", "Vakhonin");
@@ -139,107 +119,254 @@ const testGetBookNames = async () => {
   }
 
   try {
-    await authors.getBookNames(123, 123); // Throws Error
+    await authors.getBookNames(123, 123); 
     console.log("Test2: No error");
   } catch (error) {
     console.error("Error for Test2:", error);
   }
 
   try {
-    await authors.getBookNames(" ", " "); // Throws Error
+    await authors.getBookNames(" ", " "); 
     console.log("Test3: No error");
   } catch (error) {
     console.error("Error for Test3:", error);
   }
 
   try {
-    await authors.getBookNames("Patrick", "Hill"); // Throws Error
+    await authors.getBookNames("Patrick", "Hill");
     console.log("Test4: No error");
   } catch (error) {
     console.error("Error for Test4:", error);
   }
 
   try {
-    await authors.getBookNames("Perrine", "Greenough"); // Throws Error
+    await authors.getBookNames("Perrine", "Greenough"); 
     console.log("Test5: No error");
   } catch (error) {
     console.error("Error for Test5:", error);
   }
 
   try {
-    await authors.getBookNames(); // Throws Error
+    await authors.getBookNames(); 
     console.log("Test6: No error");
   } catch (error) {
     console.error("Error for Test6:", error);
   }
 };
 
-// Call the test function
 testGetBookNames();
 
-/**
- * OUTPUT
- * 
-Test1: Book List 1: [ 'Good Thief, The', 'Point, The' ]
-Error for Test2: Invalid argument: id must be a string
-Error for Test3: Invalid argument: id cannot be empty
-Error for Test4: Author Patrick Hill not found in authors.json
-Error for Test5: Author Perrine Greenough has not written any books
-Error for Test6: Invalid argument: id must be a string
- * 
- */
 
 const testYoungestOldest = async () => {
-    try {
-      const result = await authors.youngestOldest();
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
-  testYoungestOldest();
-  
-   
-  async function runTests() {
-    try {
-      const result1 = await authors.sameBirthday(10, 12);
-      console.log(result1); // Should return ["Pancho Barradell", "Lauree Henriquet"]
-    } catch (error) {
-      console.error(error);
-    }
-  
-    try {
-      await authors.sameBirthday(9, 31); // Should throw an error
-    } catch (error) {
-      console.error(error); 
-    }
-  
-    try {
-      await authors.sameBirthday(13, 25); // Should throw an error
-    } catch (error) {
-      console.error(error); 
-    }
-  
-    try {
-      await authors.sameBirthday(2, 30); // Should throw an error
-    } catch (error) {
-      console.error(error); 
-    }
-  
-    try {
-      await authors.sameBirthday("09", "31"); // Should throw an error
-    } catch (error) {
-      console.error(error); 
-    }
-  
-    try {
-      await authors.sameBirthday(); // Should throw an error
-    } catch (error) {
-      console.error(error); 
-    }
+  try {
+    const result = await authors.youngestOldest();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
   }
-  
-  runTests();
+};
 
+testYoungestOldest();
 
+async function runTests() {
+  try {
+    const result1 = await authors.sameBirthday(10, 12);
+    console.log(result1); // Should return ["Pancho Barradell", "Lauree Henriquet"]
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    await authors.sameBirthday(9, 31);
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    await authors.sameBirthday(13, 25); 
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    await authors.sameBirthday(2, 30); 
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    await authors.sameBirthday("09", "31"); 
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    await authors.sameBirthday();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+runTests(); */
+
+/*********************** BOOKS ***********************/
+
+import { getBookById } from "./books.js";
+
+async function runTests() {
+  try {
+    const book = await getBookById("99875ad8-a1d3-42ea-8d7b-5ac4cd4edb9e");
+    console.log(book);
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    await getBookById(-1);
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    await getBookById(1001);
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    await getBookById();
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    await getBookById("7989fa5e-5617-43f7-a931-46036f9dbcff"); // Throws 'Book not found' Error
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+runTests();
+
+import { getAuthorName } from "./books.js";
+
+try {
+  const authorName = await getAuthorName(
+    "99875ad8-a1d3-42ea-8d7b-5ac4cd4edb9e"
+  );
+  console.log(authorName);
+} catch (error) {
+  console.error(error);
+}
+
+try {
+  await getAuthorName(-1);
+} catch (error) {
+  console.error(error);
+}
+
+try {
+  await getAuthorName(1001);
+} catch (error) {
+  console.error(error);
+}
+
+try {
+  await getAuthorName();
+} catch (error) {
+  console.error(error);
+}
+
+try {
+  await getAuthorName("7989fa5e-5617-43f7-a931-46036f9dbcff"); // Throws 'Book not found' Error
+} catch (error) {
+  console.error(error);
+}
+
+import { sameGenre } from "./books.js";
+try {
+  await sameGenre("Memoir");
+} catch (error) {
+  console.error(error);
+}
+
+try {
+  await sameGenre(-1);
+} catch (error) {
+  console.error(error);
+}
+
+try {
+  await sameGenre(1001);
+} catch (error) {
+  console.error(error);
+}
+
+try {
+  await sameGenre();
+} catch (error) {
+  console.error(error);
+}
+
+try {
+  await sameGenre(false);
+} catch (error) {
+  console.error(error);
+}
+
+try {
+  await sameGenre("foo bar");
+} catch (error) {
+  console.error(error);
+}
+
+import { priceRange } from "./books.js";
+
+(async () => {
+  try {
+    const booksInRange1 = await priceRange(5.99, 30);
+    console.log("Books within the price range:", booksInRange1);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+
+  try {
+    const booksInRange2 = await priceRange("foo", 12);
+    console.log("Books within the price range:", booksInRange2);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+
+  try {
+    const booksInRange3 = await priceRange(5, 3);
+    console.log("Books within the price range:", booksInRange3);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+
+  try {
+    const booksInRange4 = await priceRange(-5, 3);
+    console.log("Books within the price range:", booksInRange4);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+
+  try {
+    const booksInRange5 = await priceRange(); // Missing parameters
+    console.log("Books within the price range:", booksInRange5);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+})();
+
+import { getAllBooksWithAuthorName } from "./books.js";
+
+(async () => {
+  try {
+    const booksWithAuthors = await getAllBooksWithAuthorName();
+
+    console.log(booksWithAuthors);
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
+})();
