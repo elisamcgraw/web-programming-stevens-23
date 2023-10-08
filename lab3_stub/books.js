@@ -40,7 +40,7 @@ const getAuthorName = async (bookId) => {
   }
 
   // Fetch the list of authors
-  const authors = await getAuthors(); // You should have a function for fetching authors
+  const authors = await getAuthors(); 
 
   // Find the author with the same id as the book's authorId
   const author = authors.find((author) => author.id === book.authorId);
