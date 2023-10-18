@@ -1,0 +1,15 @@
+{
+  "name": "cs-546-lab-4",
+  "version": "1.0.0",
+  "description": "Javascript Lab4 CS-546 Stevens 2023",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Elisa McGraw, 10477483",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.1.0"
+  }
+}
