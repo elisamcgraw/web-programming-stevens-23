@@ -3,7 +3,7 @@ import { MongoClient, ObjectId } from 'mongodb';
 
 // Connection URL and Database Name
 const url = 'mongodb://localhost:27017';
-const dbName = 'FirstName_LastName_lab6';
+const dbName = 'Elisa_McGraw_Lab6';
 
 // Sample Data
 const sampleAttendees = [

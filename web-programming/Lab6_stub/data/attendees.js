@@ -1,102 +1,141 @@
-// This data file should export all functions using the ES6 standard as shown in the lecture code
-import {events} from '../config/mongoCollections.js';
-import mongodb from 'mongodb';
-const { ObjectID } = mongodb;
+import { events as eventsCollImport } from "../config/mongoCollections.js";
+import helpers from '../helpers.js';
+import { ObjectId } from "mongodb";
 
-import {
-  isValidString,
-  isValidEmail,
-} from '../helpers.js';
+let attendeeHelpers = {
 
-/***************************** CREATE ATTENDEE ******************************/
+    async createAttendee(eventId, firstName, lastName, emailAddress) {
+        console.log('Attempting to create attendee...');
 
-const createAttendee = async (eventId, firstName, lastName, emailAddress) => {
-  //Implement Code here
-  if (!eventId || !isValidString(eventId) || !ObjectID.isValid(eventId)) throw 'Invalid event id';
-  if (!firstName || !isValidString(firstName)) throw 'Invalid first name';
-  if (!lastName || !isValidString(lastName)) throw 'Invalid last name';
-  if (!emailAddress || !isValidEmail(emailAddress)) throw 'Invalid email address';
+        console.log('Checking eventID validity...');
+        helpers.checkId(eventId, 'eventId');
+        console.log('Checking provided data validity...');
+        console.log('Before isValidString firstName');
+        console.log('Value of firstName:', firstName);
+        console.log('Type of firstName:', typeof firstName);
 
-  const eventsCollection = await events();
-  const event = await eventsCollection.findOne({ _id: ObjectID(eventId) });
+        helpers.isValidString(firstName, 'firstName');
+        console.log('After isValidString firstName');
+        console.log('Before isValidString lastName');
+        helpers.isValidString(lastName, 'lastName');
+        console.log('After isValidString lastName');
 
-  if (!event) throw 'Event not found';
-  if (event.attendees.find(att => att.emailAddress === emailAddress)) throw 'Email already registered';
-  if (event.attendees.length >= event.maxCapacity) throw 'Event is full';
+        console.log('Before helpers.isValidEmail');
+        if (!helpers.isValidEmail(emailAddress)) {
+            console.log('Error: Invalid email address provided.');
+            throw 'Provided email address is not valid.';
+        }
+        console.log('After helpers.isValidEmail');
 
-  const newAttendee = {
-    _id: ObjectID(),
-    firstName: firstName.trim(),
-    lastName: lastName.trim(),
-    emailAddress: emailAddress.trim()
-  };
+        console.log('Fetching event from database...');
 
-  const updateCommand = await eventsCollection.updateOne({_id: ObjectID(eventId)}, {
-    $push: {attendees: newAttendee},
-    $inc: {totalNumberOfAttendees: 1}
-  });
+        const eventCollection = await eventsCollImport();
+        const eventInfo = await eventCollection.findOne({ _id: new ObjectId(eventId) });
+        console.log('Event fetched:', eventInfo);
 
-  if(!updateCommand.result.ok) throw "Failed to add attendee";
+        if (!eventInfo) {
+            console.log(`Error: Event with ID ${eventId} not found.`);
+            throw 'Event with provided ID does not exist.';
+        }
 
-  return await eventsCollection.findOne({_id: ObjectID(eventId)});
+        if (eventInfo.attendees && eventInfo.attendees.find(att => att.emailAddress === emailAddress)) {
+            console.log('Error: Attendee with this email is already registered.');
+            throw 'Attendee with this email is already registered.';
+        }
+
+        if (eventInfo.attendees && eventInfo.attendees.length >= eventInfo.maxCapacity) {
+            console.log('Error: The event is already full.');
+            throw 'The event is already full.';
+        }
+
+        const newAttendee = {
+            _id: new ObjectId(),
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            emailAddress: emailAddress.trim()
+        };
+
+        const updateInfo = await eventCollection.updateOne(
+            { _id: new ObjectId(eventId) },
+            {
+                $push: { attendees: newAttendee },
+                $inc: { totalNumberOfAttendees: 1 }
+            }
+        );
+
+        if (updateInfo.modifiedCount === 0) {
+            console.log('Error: Could not add attendee.');
+            throw 'Could not add attendee.';
+        }
+
+        console.log('Attendee created successfully.');
+        return await eventCollection.findOne({ _id: new ObjectId(eventId) });
+    },
+
+    async getAllAttendees(eventId) {
+        console.log('Fetching all attendees for event...');
+
+        helpers.checkId(eventId, 'eventId');
+
+        const eventCollection = await eventsCollImport();;
+        const eventInfo = await eventCollection.findOne({ _id: new ObjectId(eventId) });
+
+        if (!eventInfo) {
+            console.log(`Error: Event with ID ${eventId} not found.`);
+            throw 'Event with provided ID does not exist.';
+        }
+
+        console.log('All attendees fetched successfully.');
+        return eventInfo.attendees || [];
+    },
+
+    async getAttendee(attendeeId) {
+        console.log('Fetching attendee details...');
+
+        helpers.checkId(attendeeId, 'attendeeId');
+
+        const eventCollection = await eventsCollImport();;
+        const eventWithAttendee = await eventCollection.findOne({ 'attendees._id': new ObjectId(attendeeId) });
+
+        if (!eventWithAttendee) {
+            console.log(`Error: Attendee with ID ${attendeeId} not found.`);
+            throw 'Attendee with provided ID does not exist.';
+        }
+
+        const attendee = eventWithAttendee.attendees.find(a => a._id.toString() === attendeeId);
+        console.log('Attendee details fetched successfully.');
+        return attendee;
+    },
+
+    async removeAttendee(attendeeId) {
+        console.log('Attempting to remove attendee...');
+
+        helpers.checkId(attendeeId, 'attendeeId');
+
+        const eventCollection = await eventsCollImport();;
+        const eventWithAttendee = await eventCollection.findOne({ 'attendees._id': new ObjectId(attendeeId) });
+
+        if (!eventWithAttendee) {
+            console.log(`Error: Attendee with ID ${attendeeId} not found.`);
+            throw 'Attendee with provided ID does not exist.';
+        }
+
+        const updateInfo = await eventCollection.updateOne(
+            { 'attendees._id': new ObjectId(attendeeId) },
+            {
+                $pull: { attendees: { _id: new ObjectId(attendeeId) } },
+                $inc: { totalNumberOfAttendees: -1 }
+            }
+        );
+
+        if (updateInfo.modifiedCount === 0) {
+            console.log('Error: Could not delete attendee.');
+            throw 'Could not delete attendee.';
+        }
+
+        console.log('Attendee removed successfully.');
+        return await eventCollection.findOne({ _id: eventWithAttendee._id });
+    }
 };
 
-
-/***************************** GET ALL ATTENDEES ******************************/
-
-const getAllAttendees = async (eventId) => {
-  //Implement Code here
-  if (!eventId || !isValidString(eventId) || !ObjectID.isValid(eventId)) throw 'Invalid event id';
-
-  const eventsCollection = await events();
-  const event = await eventsCollection.findOne({ _id: ObjectID(eventId) });
-
-  if (!event) throw 'Event not found';
-
-  return event.attendees;
-};
-
-
-/***************************** GET ATTENDEE ******************************/
-
-const getAttendee = async (attendeeId) => {
-  //Implement Code here
-  if (!attendeeId || !isValidString(attendeeId) || !ObjectID.isValid(attendeeId)) throw 'Invalid attendee id';
-
-  const eventsCollection = await events();
-  const event = await eventsCollection.findOne({ "attendees._id": ObjectID(attendeeId) });
-
-  if (!event) throw 'Attendee not found';
-
-  return event.attendees.find(a => a._id.toString() === attendeeId);
-};
-
-
-/***************************** REMOVE ATTENDEE ******************************/
-
-const removeAttendee = async (attendeeId) => {
-  //Implement Code here
-  if(!attendeeId || !isValidString(attendeeId)) throw "Invalid attendeeId";
-
-  const eventsCollection = await events();
-  const event = await eventsCollection.findOne({"attendees._id": ObjectID(attendeeId)});
-  if(!event) throw "Attendee not found";
-
-  const updateCommand = await eventsCollection.updateOne({_id: event._id}, {
-    $pull: {attendees: {_id: ObjectID(attendeeId)}},
-    $inc: {totalNumberOfAttendees: -1}
-  });
-
-  if(!updateCommand.result.ok) throw "Failed to remove attendee";
-
-  return await eventsCollection.findOne({_id: event._id});
-
-};
-
-export default {
-  createAttendee,
-  getAllAttendees,
-  getAttendee,
-  removeAttendee
-};
-
+export default attendeeHelpers;
