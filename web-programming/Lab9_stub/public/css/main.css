@@ -1,0 +1,105 @@
+/*
+You will style your page using at least 10 CSS selectors for general CSS styling. You will place the CSS in its own file. 
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+}
+
+.box {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+main {
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: left;
+}
+
+form#palindromeForm {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+    text-align: center;
+    display: block;
+    margin-bottom: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+input[type="text"] {
+    width: calc(100% - 1rem);
+    padding: 0.5rem;
+    margin: 0.5rem auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: block;
+}
+
+.submit-group button {
+    background: #5cb85c;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.submit-group button:hover {
+    background: #4cae4c;
+}
+
+ol#palindromes {
+    list-style: none;
+    padding-left: 0;
+}
+
+ol#palindromes li {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.prime {
+    color: #00FF00;
+}
+
+.not-prime {
+    color: #FF0000;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.error {
+    color: #FF0000;
+    font-weight: bold;
+}

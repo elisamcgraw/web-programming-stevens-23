@@ -1,0 +1,52 @@
+<!-- 
+
+A header tag, with an h1 naming your site, with a title for your page
+A footer with your name, student ID, and any other info about yourself you wish to include
+A single ordered list with an id of palindromes. 
+
+Your page will have a form with the following:
+
+
+An input with type of text and with the name palindrome_input and id attribute value of "palindrome_input"
+A buttom to submit the form (make sure this is a button and not an input!)
+
+A button to submit the form
+ -->
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palindrome/Prime Checker</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+<link rel="stylesheet" href="/web-programming/Lab9_stub/public/css/main.css"> 
+</head>
+<body>
+
+<header>
+    <h1>Palindrome/Prime Checker</h1>
+</header>
+
+<main>
+    <form id="palindromeForm">
+        <div class="input-group">
+            <label for="palindrome_input">Enter text to check:</label>
+            <input type="text" name="palindrome_input" id="palindrome_input" placeholder="e.g. madam, racecar" required />
+        </div>
+        <div class="submit-group">
+            <button type="submit">Check</button>
+        </div>
+    </form>
+
+    <ol id="palindromes"></ol>
+</main>
+
+<footer>
+    <p>Created by Elisa McGraw, Student ID: 10477483</p>
+</footer>
+
+<script src="../public/js/main.js"></script>
+
+</body>
+</html>

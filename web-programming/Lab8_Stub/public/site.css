@@ -1,0 +1,176 @@
+/*This file should have 10 CSS rulesets */
+
+/* site.css */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+  color: #333333;
+  line-height: 1.6;
+}
+
+header {
+  background: #ed1d24;
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  text-transform: uppercase;
+  margin: 0.4em 0;
+}
+
+h1 {
+  color: #000;
+  font-size: 2em;
+}
+
+h2 {
+  color: #555;
+}
+
+.main {
+  padding: 20px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.not-found, .error {
+  color: #ed1d24;
+  margin: 20px 0;
+  text-align: center;
+}
+
+a {
+  color: #0052cc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #003399;
+  text-decoration: underline;
+}
+
+form {
+  max-width: 600px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: .5em;
+}
+
+input[type="text"], input[type="search"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background: #ed1d24;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+}
+
+input[type="submit"]:hover {
+  background: #cc151d;
+}
+
+ol {
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+ol > li {
+  padding: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.article-detail {
+  background: #fff;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 80%;
+  max-width: 960px;
+}
+
+.article-detail img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.comic-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.comic-list li {
+  padding: 5px 0;
+}
+
+.back-link {
+  display: block;
+  padding: 10px 0;
+  color: #ed1d24;
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .main, header, .article-detail {
+    padding: 10px;
+  }
+}
+
+.character-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.character-item {
+  margin-bottom: 1rem;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.character-link {
+  color: #ed1d24;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.character-description {
+  display: block;
+  color: #555;
+  margin-top: 5px;
+}
+
+.site-footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
