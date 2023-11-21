@@ -1,0 +1,18 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     '/Users/elisamasiero/Documents/stevens-fall/web-programming/Project 2 - Operating Systems/disk-scheduler'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100002F60, symSize: 0x1E0 }
+  - { offsetInCU: 0x4E, offset: 0x4E, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100002F60, symSize: 0x1E0 }
+  - { offsetInCU: 0xB3, offset: 0xB3, size: 0x8, addend: 0x0, symName: _read_requests, symObjAddr: 0x1E0, symBinAddr: 0x100003140, symSize: 0xE0 }
+  - { offsetInCU: 0x10F, offset: 0x10F, size: 0x8, addend: 0x0, symName: _print_requests, symObjAddr: 0x2C0, symBinAddr: 0x100003220, symSize: 0x70 }
+  - { offsetInCU: 0x15D, offset: 0x15D, size: 0x8, addend: 0x0, symName: _execute_fcfs, symObjAddr: 0x330, symBinAddr: 0x100003290, symSize: 0xA0 }
+  - { offsetInCU: 0x1C7, offset: 0x1C7, size: 0x8, addend: 0x0, symName: _execute_sstf, symObjAddr: 0x3D0, symBinAddr: 0x100003330, symSize: 0x1F0 }
+  - { offsetInCU: 0x2BF, offset: 0x2BF, size: 0x8, addend: 0x0, symName: _execute_scan, symObjAddr: 0x5C0, symBinAddr: 0x100003520, symSize: 0x1D0 }
+  - { offsetInCU: 0x399, offset: 0x399, size: 0x8, addend: 0x0, symName: _execute_cscan, symObjAddr: 0x790, symBinAddr: 0x1000036F0, symSize: 0x1F0 }
+  - { offsetInCU: 0x475, offset: 0x475, size: 0x8, addend: 0x0, symName: _execute_look, symObjAddr: 0x980, symBinAddr: 0x1000038E0, symSize: 0x1A0 }
+  - { offsetInCU: 0x56A, offset: 0x56A, size: 0x8, addend: 0x0, symName: _execute_clook, symObjAddr: 0xB20, symBinAddr: 0x100003A80, symSize: 0x1A0 }
+  - { offsetInCU: 0x65F, offset: 0x65F, size: 0x8, addend: 0x0, symName: _calculate_total_movement, symObjAddr: 0xCC0, symBinAddr: 0x100003C20, symSize: 0x70 }
+  - { offsetInCU: 0x6DB, offset: 0x6DB, size: 0x8, addend: 0x0, symName: _find_min_index, symObjAddr: 0xD30, symBinAddr: 0x100003C90, symSize: 0x60 }
+  - { offsetInCU: 0x73B, offset: 0x73B, size: 0x8, addend: 0x0, symName: _ascending, symObjAddr: 0xD90, symBinAddr: 0x100003CF0, symSize: 0x5A }
+...
