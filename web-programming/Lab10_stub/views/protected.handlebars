@@ -1,0 +1,28 @@
+{{!--
+
+If the user is logged in , and 'GET /protected' endpoint is called, you will render this view based on the specs.
+
+--}}
+
+{{!-- Page Header --}}
+<header>
+    <h1>Welcome to the Protected Area</h1>
+</header>
+
+{{!-- Personalized User Information --}}
+<section>
+    <h2>Hello, {{user.firstName}} {{user.lastName}}</h2>
+    <p>Welcome to your dashboard. Here you can access protected content.</p>
+
+
+</section>
+
+{{!-- Navigation Links --}}
+<nav>
+    <ul>
+        <li><a href="/logout">Logout</a></li>
+        {{#if isAdmin}}
+            <li><a href="/admin">Admin Dashboard</a></li>
+        {{/if}}
+    </ul>
+</nav>

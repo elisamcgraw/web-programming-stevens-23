@@ -1,0 +1,29 @@
+{{!--
+
+If the user is logged in and they are an admin user, and 'GET /admin' endpoint is called, you will render this view
+based on the specs.
+
+
+
+--}}
+
+{{!-- Page Header --}}
+<header class="admin-header">
+    <h1>Admin Dashboard</h1>
+</header>
+
+{{!-- Admin-specific Content --}}
+<section class="admin-content">
+    <h2>Welcome, {{user.firstName}} {{user.lastName}}</h2>
+    <p>As an admin, you have full access to the system's capabilities.</p>
+
+
+</section>
+
+{{!-- Navigation Links --}}
+<nav class="admin-nav">
+    <ul>
+        <li><a href="/protected">Go to Protected Page</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</nav>
